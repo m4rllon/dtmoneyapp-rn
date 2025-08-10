@@ -4,5 +4,5 @@ export const Text = styled.Text`
     color: ${({theme}) => theme.colors.text_heading};
     font-family: ${({theme}) => theme.fonts.regular};
     font-size: 16px;
-    line-height: 160;
+    line-height: 24;
 `
