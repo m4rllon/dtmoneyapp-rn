@@ -1,17 +1,10 @@
-import { MyText } from "../../components/MyText";
-import { MyTitle } from "../../components/MyTitle";
+import { Header } from "../../components/Header";
 import { Container } from "./styles";
 
 export function Home(){
     return(
         <Container>
-            <MyTitle>
-                Home
-            </MyTitle>
-
-            <MyText>
-                ola
-            </MyText>
+            <Header/>
         </Container>
     )
 }

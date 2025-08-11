@@ -1,11 +1,10 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-    flex: 1;
-    justify-content: center;
+    flex: 1;;
     align-items: center;
 
     width: 100%;
 
-    background-color: ${({theme}) => theme.colors.background_tertiary};
+    background-color: ${({theme}) => theme.colors.background_secondary};
 `;
