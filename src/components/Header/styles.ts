@@ -74,13 +74,3 @@ export const TextButton = styled.Text`
     font-size: ${RFPercentage(2)}px;
     line-height: 24;
 `
-
-export const CardsContainer = styled.ScrollView.attrs({
-    horizontal: true,
-    showsHorizontalScrollIndicator: false,
-    contentContainerStyle: {paddingLeft: 24, paddingRight: 16}
-})`
-    position:absolute;
-    flex-direction: row;
-    margin-top: ${RFPercentage(20)}px;
-`
