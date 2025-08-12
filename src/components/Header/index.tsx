@@ -10,7 +10,6 @@ import {
     IconExit,
     Text,
  } from "./styles";
-import { DashCard } from "../DashCard";
 
 export function Header(){
     return(
