@@ -12,6 +12,7 @@ import {
 import theme from './src/global/styles/theme';
 import { Home } from './src/screens/Home';
 import { Register } from '@/screens/Register';
+import { Login } from '@/screens/Login';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Register/>
+      <Login/>
     </ThemeProvider>
   );
 }

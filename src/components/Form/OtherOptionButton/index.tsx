@@ -13,7 +13,7 @@ export function OtherOptionButton({label, ...rest}:OtherOptionButtonProps){
     return(
         <Container {...rest}>
             <ButtonLabel>
-                Acessar
+                {label}
             </ButtonLabel>
             <ButtonIcon name="arrow-right"/>
         </Container>
