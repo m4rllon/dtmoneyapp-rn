@@ -3,9 +3,12 @@ import {
     Container,
     Form,
     Footer,
+    SubText,
 } from "./styles";
 import { Input } from "@/components/Form/Input";
 import { TypeInput } from "@/Interfaces/Input";
+import { SubmitButton } from "@/components/Form/SubmitButton";
+import { OtherOptionButton } from "@/components/Form/OtherOptionButton";
 
 export function Register(){
     return(
@@ -28,10 +31,14 @@ export function Register(){
                 type={TypeInput.PASSWORD}
                 placeholderText="Insira sua senha novamente"
                 label="confirme sua senha"/>
-                
+                <SubmitButton
+                label="Cadastrar"/>
             </Form>
             <Footer>
-
+                <SubText>
+                    Já possui uma conta?
+                </SubText>
+                <OtherOptionButton/>
             </Footer>
         </Container>
     )

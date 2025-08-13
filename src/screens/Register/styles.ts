@@ -15,4 +15,12 @@ export const Form = styled.View`
 `
 
 export const Footer = styled.View`
+    width: 100%;
+    padding: 0 32px;
+    gap: 16px;
 `
+
+export const SubText = styled.Text`
+    font-size: 16px;
+    color: ${({theme}) => theme.colors.text_span};
+` 

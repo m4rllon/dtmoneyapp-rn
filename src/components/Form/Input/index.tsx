@@ -26,7 +26,8 @@ export function Input({type, label, placeholderText}:InputProps){
                 
                 <MyInput 
                 placeholder={placeholderText}
-                secureTextEntry={secureTextEntryState}/>
+                secureTextEntry={secureTextEntryState}
+                keyboardType={type === TypeInput.MAIL ? 'email-address' : 'default'}/>
                 
                 {type === TypeInput.PASSWORD ? 
                 <TouchableWithoutFeedback onPress={() => setSecureTextEntryState(prev => !prev)}>
