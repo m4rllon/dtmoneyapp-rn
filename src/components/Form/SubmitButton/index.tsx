@@ -1,12 +1,13 @@
 import { Button, TextButton, IconButton } from "./styles";
+import { TouchableOpacityProps } from "react-native";
 
-interface SubmitButtonProps{
+interface SubmitButtonProps extends TouchableOpacityProps {
     label: string;
 }
 
-export function SubmitButton({label}:SubmitButtonProps){
+export function SubmitButton({label, ...rest}:SubmitButtonProps){
     return(
-        <Button>
+        <Button {...rest}>
             <TextButton>
                 {label}
             </TextButton>

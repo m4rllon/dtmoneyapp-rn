@@ -1,7 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import styled from "styled-components/native";
+import { TouchableOpacity } from "react-native";
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled(TouchableOpacity)`
     width: 100%;
     flex-direction: row;
     justify-content: space-between;

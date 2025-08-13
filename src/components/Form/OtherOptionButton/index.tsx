@@ -1,12 +1,17 @@
+import { TouchableOpacityProps } from "react-native";
 import { 
     Container,
     ButtonLabel,
     ButtonIcon,
  } from "./styles";
 
-export function OtherOptionButton(){
+interface OtherOptionButtonProps extends TouchableOpacityProps {
+    label: string;
+}
+
+export function OtherOptionButton({label, ...rest}:OtherOptionButtonProps){
     return(
-        <Container>
+        <Container {...rest}>
             <ButtonLabel>
                 Acessar
             </ButtonLabel>

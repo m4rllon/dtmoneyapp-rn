@@ -38,7 +38,8 @@ export function Register(){
                 <SubText>
                     Já possui uma conta?
                 </SubText>
-                <OtherOptionButton/>
+                <OtherOptionButton 
+                label="Acessar"/>
             </Footer>
         </Container>
     )
