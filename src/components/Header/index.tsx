@@ -1,17 +1,22 @@
-import { Image, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { 
-    Button, 
+    NewTransactionButton, 
     Container, 
     MenuContainer, 
     TextButton, 
     Title,
     InfosContainer,
     TitleContainer,
+    ExitButton,
     IconExit,
     Text,
  } from "./styles";
 
-export function Header(){
+interface HeaderProps{
+    openModal: () => void;
+}
+
+export function Header({openModal} : HeaderProps){
     return(
         <Container>
             <MenuContainer>
@@ -25,17 +30,20 @@ export function Header(){
                         </View>
                     </InfosContainer>
                     <InfosContainer>
-                        <IconExit name='exit-outline'/>
-                        <Text>
-                            Sair da conta
-                        </Text>
+                        <ExitButton>
+                            <IconExit name='exit-outline'/>
+                            <Text>
+                                Sair da conta
+                            </Text>
+                        </ExitButton>
                     </InfosContainer>
                 </TitleContainer>
-                <Button>
+                <NewTransactionButton
+                onPress={openModal}>
                     <TextButton>
                         Nova transação
                     </TextButton>
-                </Button>
+                </NewTransactionButton>
             </MenuContainer>
         </Container>
     )

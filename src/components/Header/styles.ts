@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Ionicons } from '@expo/vector-icons'
+import { TouchableOpacity } from "react-native";
 
 export const Container = styled.View`
     width: 100%;
@@ -57,7 +58,7 @@ export const Title = styled.Text`
     line-height: 32;
 `
 
-export const Button = styled.TouchableOpacity`
+export const NewTransactionButton = styled.TouchableOpacity`
     background-color: ${({theme}) => theme.colors.accent_brand_light};
 
     height: ${RFPercentage(5.8)}px;
@@ -73,4 +74,10 @@ export const TextButton = styled.Text`
     font-family: ${({theme}) => theme.fonts.bold};
     font-size: ${RFPercentage(2)}px;
     line-height: 24;
+`
+export const ExitButton = styled(TouchableOpacity)`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 `

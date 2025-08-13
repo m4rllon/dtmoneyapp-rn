@@ -8,7 +8,8 @@ export const MainContainer = styled.View`
     justify-content: center;
     align-items: center;
     gap: ${RFValue(8)}px;
-    margin-top: ${RFPercentage(10)};
+    margin-top: ${RFPercentage(8)};
+    margin-bottom: ${RFPercentage(9)};
     padding: 0 24px;
 `
 
@@ -52,5 +53,5 @@ export const TransactionsScroll = styled(
     showsVerticalScrollIndicator: false
 })`
     width: 100%;
-    height:430;
+    height:440;
 `
