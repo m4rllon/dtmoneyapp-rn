@@ -10,6 +10,7 @@ import {
  } from "./styles";
 
 import { TransactionProps, TransactionType } from "../../Interfaces/Transaction";
+import { tags } from "@/mocks/Tags";
 
 interface TransactionCardData{
     data:TransactionProps
@@ -20,6 +21,8 @@ export function TransactionCard({data}:TransactionCardData){
     data.value)
 
     const dateFormat = new Intl.DateTimeFormat("pt-Br").format(data.date)
+
+    const tag = tags.find(tag => tag.id === data.tagId)
 
     return(
         <MainContainer>
@@ -36,7 +39,7 @@ export function TransactionCard({data}:TransactionCardData){
                     <TagIcon
                     name="tag"/>
                     <SpanText>
-                        {data.tag}
+                        {tag?.name}
                     </SpanText>
                 </Footer>
                 <Footer>

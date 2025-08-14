@@ -17,10 +17,6 @@ export function Home(){
         setOpenNewTransactionModal(false)
     }
 
-    useEffect(()=>{
-        console.log(openNewTransactionModal)
-    },[openNewTransactionModal])
-
     return(
         <Container $statusModal={openNewTransactionModal}>
             <Header

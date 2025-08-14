@@ -7,7 +7,7 @@ export interface TransactionProps {
     type: TransactionType;
     name: string;
     value: number;
-    tag: string;
+    tagId: string;
     date: Date;
 }
 

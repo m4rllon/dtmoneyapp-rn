@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
@@ -50,7 +50,7 @@ export const CategoryButtonContainer = styled.View`
 `
 
 export const Footer = styled.View`
-    flex: 1;
+    margin-top: ${RFValue(24)}px;
     width: 100%;
     justify-content: center;
     align-items: center;

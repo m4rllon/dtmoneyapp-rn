@@ -21,7 +21,6 @@ export function TransactionsList(){
         else setTransactionsData( prev => {
             return prev.filter(item => 
                 item.name.toLowerCase().includes(textInput.toLowerCase())
-                || item.tag.toLowerCase().includes(textInput.toLowerCase())
             )
         })
     }, [textInput])

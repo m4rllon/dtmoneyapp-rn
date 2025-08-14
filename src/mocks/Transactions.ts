@@ -6,7 +6,7 @@ export const transactions:TransactionListProps[] = [
         type: TransactionType.WITHDRAWA,
         name: 'Hamburguer',
         value: 59.00,
-        tag: 'Alimentação',
+        tagId: '1',
         date: new Date()
     },
     {
@@ -14,7 +14,7 @@ export const transactions:TransactionListProps[] = [
         type: TransactionType.DEPOSIT,
         name: 'Computador',
         value: 1000,
-        tag: 'Venda',
+        tagId: '5',
         date: new Date()
     },
     {
@@ -22,7 +22,7 @@ export const transactions:TransactionListProps[] = [
         type: TransactionType.WITHDRAWA,
         name: 'Aluguel do apartamento',
         value: 1200,
-        tag: 'Casa',
+        tagId: '3',
         date: new Date()
     },
     {
@@ -30,7 +30,7 @@ export const transactions:TransactionListProps[] = [
         type: TransactionType.DEPOSIT,
         name: 'Desenvolvimento de site',
         value: 8000,
-        tag: 'Venda',
+        tagId: '5',
         date: new Date()
     },
 ]
