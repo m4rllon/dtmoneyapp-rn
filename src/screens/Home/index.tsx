@@ -22,7 +22,7 @@ export function Home(){
     },[openNewTransactionModal])
 
     return(
-        <Container>
+        <Container $statusModal={openNewTransactionModal}>
             <Header
             openModal={handleOpenNewTransactionModal}/>
 
