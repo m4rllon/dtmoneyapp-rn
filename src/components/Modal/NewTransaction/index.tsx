@@ -1,5 +1,4 @@
 import { TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform } from "react-native";
-import { TInput } from "@/components/TInput";
 import { 
     Container, 
     InputsContainer,
@@ -11,23 +10,48 @@ import {
  } from "./styles";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { TypeTransactionButton } from "@/components/TypeTransactionButton";
-import { TransactionType } from "@/Interfaces/Transaction";
-import { useEffect, useState } from "react";
+import { TransactionType, TransactionListProps } from "@/Interfaces/Transaction";
+import { useState } from "react";
 import { PickerForm } from "@/components/PickerForm";
 import { tags } from "@/mocks/Tags";
-import { TagProps } from "@/Interfaces/Tag";
+import { InputWithController } from "@/components/Form/InputWithController";
+import { useForm } from "react-hook-form";
+import { getTypeTransaction } from "@/utils/getTypeTransaction";
+
+// TEMPORÁRIO
+import { transactions } from "@/mocks/Transactions";
 
 interface NewTransactionProps{
     onCloseModal: () => void;
+}
+
+interface FormData{
+    name: string;
+    value: string;
 }
 
 export function NewTransaction({onCloseModal} : NewTransactionProps){
     const [onPressDepositButton, setOnPressDepositButton] = useState(false)
     const [onPressDepositWhidrawaButton, setOnPressDepositWhidrawaButton] = useState(false)
     const [category, setCategory] = useState<string>('')
+    const { control, handleSubmit } = useForm<FormData>()
     
-    const createTransaction = () => {
-        onCloseModal()
+    const transactionType = getTypeTransaction(onPressDepositButton, onPressDepositWhidrawaButton)
+
+    const createTransaction = (form:FormData) => {
+        if(transactionType){
+            const newTrasactionData:TransactionListProps = {
+                name: form.name,
+                value: Number(form.value),
+                date: new Date(),
+                tagId: category,
+                type: transactionType,
+                id: transactions.length + 1
+            }
+            console.log(newTrasactionData)
+        }
+        
+        // onCloseModal()
     }
 
     const handleChooseTypeTransaction = (type: TransactionType) => {
@@ -57,10 +81,16 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
 
                         <ScrollView>
                             <InputsContainer>
-                                <TInput 
-                                placeholder="Descrição"/>
-                                <TInput 
-                                placeholder="Preço"/>
+                                <InputWithController
+                                placeholder="Descrição"
+                                name="name"
+                                isRequired
+                                control={control}/>
+                                <InputWithController
+                                placeholder="Preço"
+                                name="value"
+                                isRequired
+                                control={control}/>
                                 <PickerForm
                                 valuesList={tags}
                                 selectedValue={category}
@@ -82,7 +112,7 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
                             <Footer>
                                 <PrimaryButton 
                                 label="Cadastrar"
-                                onPress={createTransaction}/>
+                                onPress={handleSubmit(createTransaction)}/>
                             </Footer>
                         </ScrollView>
                     </Container>
