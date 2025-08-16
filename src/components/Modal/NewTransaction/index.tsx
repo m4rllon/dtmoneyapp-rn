@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform } from "react-native";
 import { 
     Container, 
@@ -8,18 +9,21 @@ import {
     Footer,
     CategoryButtonContainer,
  } from "./styles";
-import { PrimaryButton } from "@/components/PrimaryButton";
+ 
+ import { PrimaryButton } from "@/components/PrimaryButton";
 import { TypeTransactionButton } from "@/components/TypeTransactionButton";
-import { TransactionType, TransactionListProps } from "@/Interfaces/Transaction";
-import { useState } from "react";
-import { PickerForm } from "@/components/PickerForm";
-import { tags } from "@/mocks/Tags";
 import { InputWithController } from "@/components/Form/InputWithController";
-import { useForm } from "react-hook-form";
-import { getTypeTransaction } from "@/utils/getTypeTransaction";
+import { PickerForm } from "@/components/PickerForm";
 
-// TEMPORÁRIO
-import { transactions } from "@/mocks/Transactions";
+import { getTypeTransaction } from "@/utils/getTypeTransaction";
+import { TransactionType, TransactionListProps } from "@/Interfaces/Transaction";
+import { tags } from "@/mocks/Tags";
+import { transactions } from "@/mocks/Transactions"; // TEMPORÁRIO
+
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { ErrorMessage } from "@/components/Form/ErrorMessage";
 
 interface NewTransactionProps{
     onCloseModal: () => void;
@@ -27,14 +31,31 @@ interface NewTransactionProps{
 
 interface FormData{
     name: string;
-    value: string;
+    value: number;
 }
+
+const schema = yup.object({
+  name: yup.string()
+    .required('Informe uma descrição.'),
+  value: yup.number()
+    .positive('O valor da trasanção deve ser positivo')
+    .typeError('Informe um valor numérico')
+    .required('Informe um valor.'),
+})
 
 export function NewTransaction({onCloseModal} : NewTransactionProps){
     const [onPressDepositButton, setOnPressDepositButton] = useState(false)
     const [onPressDepositWhidrawaButton, setOnPressDepositWhidrawaButton] = useState(false)
     const [category, setCategory] = useState<string>('')
-    const { control, handleSubmit } = useForm<FormData>()
+    const [categoryErrorMessage, setCategoryErrorMessage] = useState<string | undefined>()
+    const [typeErrorMessage, setTypeErrorMessage] = useState<string | undefined>()
+
+    const { 
+        control, 
+        handleSubmit,
+        formState: { errors } } = useForm<FormData>({
+            resolver: yupResolver(schema),
+        })
     
     const transactionType = getTypeTransaction(onPressDepositButton, onPressDepositWhidrawaButton)
 
@@ -46,12 +67,11 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
                 date: new Date(),
                 tagId: category,
                 type: transactionType,
-                id: transactions.length + 1
+                id: transactions.length + 1 //TEMPORÁRIO
             }
             console.log(newTrasactionData)
+            onCloseModal()
         }
-        
-        // onCloseModal()
     }
 
     const handleChooseTypeTransaction = (type: TransactionType) => {
@@ -63,6 +83,8 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
             setOnPressDepositWhidrawaButton(true)
         } 
     }
+
+    useEffect(()=>{console.log(categoryErrorMessage, typeErrorMessage)}, [categoryErrorMessage, typeErrorMessage])
 
     return(
         <KeyboardAvoidingView
@@ -84,17 +106,21 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
                                 <InputWithController
                                 placeholder="Descrição"
                                 name="name"
-                                isRequired
-                                control={control}/>
+                                control={control}
+                                autoCapitalize='sentences'
+                                autoCorrect={false}
+                                error={errors.name?.message}/>
                                 <InputWithController
                                 placeholder="Preço"
                                 name="value"
-                                isRequired
-                                control={control}/>
+                                control={control}
+                                keyboardType='numeric'
+                                error={errors.value?.message}/>
                                 <PickerForm
                                 valuesList={tags}
                                 selectedValue={category}
                                 onValueChange={(value) => setCategory(value)}/>
+                                {categoryErrorMessage && <ErrorMessage>{categoryErrorMessage}</ErrorMessage>}
 
                                 <CategoryButtonContainer>
                                     <TypeTransactionButton
@@ -108,6 +134,8 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
                                     type={TransactionType.WITHDRAWA}
                                     onPress={() => handleChooseTypeTransaction(TransactionType.WITHDRAWA)}/>
                                 </CategoryButtonContainer>
+                                {typeErrorMessage && <ErrorMessage>{typeErrorMessage}</ErrorMessage>}
+
                             </InputsContainer>
                             <Footer>
                                 <PrimaryButton 
