@@ -53,5 +53,5 @@ export const TransactionsScroll = styled(
     showsVerticalScrollIndicator: false
 })`
     width: 100%;
-    height:440;
+    height: ${RFPercentage(45)};
 `
