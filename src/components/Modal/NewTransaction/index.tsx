@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { ErrorMessage } from "@/components/Form/ErrorMessage";
+import { InputSelect } from "@/components/Form/InputSelect";
 
 interface NewTransactionProps{
     onCloseModal: () => void;
@@ -32,6 +33,11 @@ interface NewTransactionProps{
 interface FormData{
     name: string;
     value: number;
+}
+
+type TData = {
+    id: string;
+    name: string;
 }
 
 const schema = yup.object({
@@ -46,7 +52,7 @@ const schema = yup.object({
 export function NewTransaction({onCloseModal} : NewTransactionProps){
     const [onPressDepositButton, setOnPressDepositButton] = useState(false)
     const [onPressDepositWhidrawaButton, setOnPressDepositWhidrawaButton] = useState(false)
-    const [category, setCategory] = useState<string>('')
+    const [category, setCategory] = useState<TData>()
     const [categoryErrorMessage, setCategoryErrorMessage] = useState<string | undefined>()
     const [typeErrorMessage, setTypeErrorMessage] = useState<string | undefined>()
 
@@ -60,12 +66,12 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
     const transactionType = getTypeTransaction(onPressDepositButton, onPressDepositWhidrawaButton)
 
     const createTransaction = (form:FormData) => {
-        if(transactionType){
+        if(transactionType && category){
             const newTrasactionData:TransactionListProps = {
                 name: form.name,
                 value: Number(form.value),
                 date: new Date(),
-                tagId: category,
+                tagId: category?.id,
                 type: transactionType,
                 id: transactions.length + 1 //TEMPORÁRIO
             }
@@ -84,7 +90,9 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
         } 
     }
 
-    useEffect(()=>{console.log(categoryErrorMessage, typeErrorMessage)}, [categoryErrorMessage, typeErrorMessage])
+    const handleChooseCategory = (data:TData) => {
+        setCategory(data)
+    }
 
     return(
         <KeyboardAvoidingView
@@ -116,11 +124,10 @@ export function NewTransaction({onCloseModal} : NewTransactionProps){
                                 control={control}
                                 keyboardType='numeric'
                                 error={errors.value?.message}/>
-                                <PickerForm
-                                valuesList={tags}
-                                selectedValue={category}
-                                onValueChange={(value) => setCategory(value)}/>
-                                {categoryErrorMessage && <ErrorMessage>{categoryErrorMessage}</ErrorMessage>}
+
+                                <InputSelect
+                                data={tags}
+                                onChooseOption={handleChooseCategory}/>
 
                                 <CategoryButtonContainer>
                                     <TypeTransactionButton
