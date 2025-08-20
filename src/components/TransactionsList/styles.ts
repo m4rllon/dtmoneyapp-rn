@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 
 export const MainContainer = styled.View`
     width: 100%;
+    flex: 1;
     justify-content: center;
     align-items: center;
     gap: ${RFValue(8)}px;
